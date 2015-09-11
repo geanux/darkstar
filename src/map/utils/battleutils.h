@@ -116,9 +116,10 @@ namespace battleutils
 
     CWeaponSkill*	GetWeaponSkill(uint16 WSkillID);
     CMobSkill*		GetMobSkill(uint16 SkillID);
+    CMobSkill*          GetTwoHourMobSkill(JOBTYPE job);
 
     std::list<CWeaponSkill*> GetWeaponSkills(uint8 skill);
-    std::vector<CMobSkill*>  GetMobSkillsByFamily(uint16 FamilyID);
+    std::vector<CMobSkill*>  GetMobSkillList(uint16 ListID);
 
     void				FreeWeaponSkillsList();
     void				FreeMobSkillsList();
@@ -207,11 +208,14 @@ namespace battleutils
     int32               HandleSevereDamageEffect(CBattleEntity* PDefender, EFFECT effect, int32 damage, bool removeEffect);
     void                HandleTacticalParry(CBattleEntity* PEntity);
 
+    // Handles everything related to breaking Bind
+    void                BindBreakCheck(CBattleEntity* PAttacker, CBattleEntity* PDefender);
+
     // returns damage taken
     int32               HandleStoneskin(CBattleEntity* PDefender, int32 damage);
     int32               HandleFanDance(CBattleEntity* PDefender, int32 damage);
 
-    // stores damage for afflatus misery if active	
+    // stores damage for afflatus misery if active
     void                HandleAfflatusMiseryDamage(CBattleEntity* PDefender, int32 damage);
     // boosts accuracy when afflatus msiery is active
     void                HandleAfflatusMiseryAccuracyBonus(CBattleEntity* PAttacker);
@@ -220,12 +224,11 @@ namespace battleutils
     float               HandleTranquilHeart(CBattleEntity* PEntity);
 
     void				assistTarget(CCharEntity* PChar, uint16 TargID);
-    CMobSkill*          GetTwoHourMobSkill(JOBTYPE job);
 
     uint8               GetSpellAoEType(CBattleEntity* PCaster, CSpell* PSpell);
     WEATHER             GetWeather(CBattleEntity* PEntity, bool ignoreScholar);
     bool                WeatherMatchesElement(WEATHER weather, uint8 element);
-    void				DrawIn(CBattleEntity* PEntity, CMobEntity* PMob, float offset);
+    bool				DrawIn(CBattleEntity* PEntity, CMobEntity* PMob, float offset);
     void				DoWildCardToEntity(CCharEntity* PCaster, CCharEntity* PTarget, uint8 roll);
     void                AddTraits(CBattleEntity* PEntity, TraitList_t* TraitList, uint8 level);
 };
